@@ -1,0 +1,42 @@
+<aside class="aside_wrapper">
+    <div class="shop_cart-toggle_link">
+        <a href="/all" class="shop_cart-toggle_button" onclick="Button('shop')">Shop list</a>
+        <p class="shop_cart-toggle_border">|</p>
+        <a href="/cart/food" class="shop_cart-toggle_button" onclick="Button('cart')">Shop cart</a>
+    </div>
+    <% if (location === '/'){%>
+        <p>Товарів в корзині: <%- elements.length%></p>
+        <section class="shop_list">
+            <h3>Shop:</h3>
+            <% store_array.forEach(item => {%>
+                <a href="/<%- item%>" class="shop_list-link"><%-item%></a>
+            <%})%>
+            <% if(storeBackToAll){ %>
+                <a href="/all">Усі магазини</a>
+            <% } %>
+        </section>
+    <%}%>
+    <% if(location === 'cart'){%>
+    <section class="cart_list">
+        <h3>Cart:</h3>
+        <form action="/deliver_form" method="POST" class="form_wrapper">
+            <p>Name:</p>
+            <input type="text" id="user_name" name="name" value="<%- login%>" required>
+            <p>Email:</p>
+            <input type="email" id="user_email" name="email" value="<%- email%>" required>
+            <p>Phone:</p>
+            <input type="tel" id="user_phone" name="phone">
+            <p>Address:</p>
+            <input type="text" id="user_address" name="address" required>
+
+            <p>Total price:</p>
+            <input type="hidden" name="price" value ="<%- sum%>">
+            <p>$<%- sum%></p>
+
+            <button type="submit">Order</button>
+        </form>
+        <ul class="shop_list-items">
+        </ul>
+    </section>
+    <%}%>
+</aside>

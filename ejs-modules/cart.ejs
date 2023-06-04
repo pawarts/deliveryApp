@@ -1,0 +1,49 @@
+<%- include('./base/header.ejs')%>
+
+<body>
+    <header class="header">
+        <p class="user_name"><%- login %></p>
+        <a class="exit_button" href="/log">Вийти <img class="exit_button-image" src="../images/exit-outline.svg" alt=""></a>
+    </header>
+    <div class="wrapper">
+        <%- include('./base/shop_list-cart.ejs')%>
+        <div class="food_wrapper">
+            <% if(results.length == 0){ %>
+                <p class="cart_empty-text">Your cart is empty now</p>
+            <% } else{ %>
+                    <ul class="food_list-items">
+                        <% results.forEach(item => {%>
+                        <li class="food_list-item">
+
+                            <img src="<%-item.food_image%>" alt="" class="food_list-img">
+                            <p class="food_list-text" for="price"><%- item.foodName%></p>
+                            <input type="hidden" name="foodName" value="<%- item.foodName%>"/>
+                            <input type="hidden" name="id" value="<%- item.id %>">
+                            <input type="hidden" name="image" value="<%- item.image_link %>">
+
+
+                            <div class="food_list-review_wrapper">
+
+                                <p class="food_list-review_text">$<%- item.price%></p>
+                                <input type="hidden" name="price" value="<%- item.price%>"/>
+
+                                <p class="food_list-review_text"><%- item.storeName%></p>
+                                <input type="hidden" name="storeName" value="<%- item.storeName%>"/>
+
+                                <p class="food_list-review_text">10-15min</p>
+                            </div>
+
+                            <div class="button_wrapper">
+                                <a href="/delete_food/<%-item.id%>/<%- item.number%>" class="add_cart_button">-</a>
+                                <p class="cart_number"><%-item.number%></p>
+                                <a href="/add_food/<%-item.id%>/<%- item.number%>" class="add_cart_button">+</a>
+                            </div>
+                        </li>
+                        <% }) %>
+                    </ul>
+            <% } %>
+        </div>
+    </div>
+</body>
+<script src="scripts/cart.js"></script>
+</html>

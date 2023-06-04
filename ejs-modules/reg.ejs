@@ -1,0 +1,43 @@
+<%- include('./base/header.ejs')%>
+<link rel="stylesheet" href="../styles/nullystyle/nullystyle.css">
+<link rel="stylesheet" href="../styles/login.css">
+<body>
+<div class="login_wrapper">
+    <h1 class="login_title">Реєстрація</h1>
+    <form action="/reg" method="post" class="form_wrap">
+        <div class="input_wrap">
+            <div class="input_items">
+                <input type="text" class="form_input" name="login" placeholder="Введіть ім'я користувача" required>
+            </div>
+            <div class="input_items">
+                <input type="email" class="form_input" name="email" placeholder="Пошта" required>
+            </div>
+            <div class="input_items">
+                <input type="text" class="form_input" name="password" placeholder="Пароль" required>
+                <input type="text" class="form_input" name="password" placeholder="Повторіть пароль" required>
+            </div>
+
+            <div class="input_items">
+                <div>
+                    <input type="radio" name="status" value="client" id="client" checked>
+                    <label for="client">Клієнт</label>
+                </div>
+                <div>
+                    <input type="radio" name="status" value="courier" id="courier">
+                    <label for="courier">Кур'єр</label>
+                </div>
+                <div>
+                    <input type="radio" name="status" value="shop" id="shop">
+                    <label for="shop">Магазин</label>
+                </div>
+            </div>
+
+        </div>
+        <button type="submit" class="sub_btn">Зареєструватись</button>
+    </form>
+    <footer class="login_footer">
+        <p class="login_footer_title">Вже маєте акаунт?&nbsp;</p>
+        <a href="/log" class="login_footer_link">Увійти</a>
+    </footer>
+</div>
+</body>

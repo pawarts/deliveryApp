@@ -1,0 +1,32 @@
+.aside_wrapper{
+    display: inline-block;
+    border: 1px solid #000;
+    padding: 0 12px 0 12px;
+}
+
+.aside_wrapper .shop_cart-toggle_link{
+    display: inline-flex;
+    margin-top: 50px;
+}
+
+.aside_wrapper .shop_cart-toggle_border{
+    margin: 0 12px;
+}
+
+.aside_wrapper .shop_cart-toggle_link .shop_cart-toggle_button{
+    color: #3d91ff;
+}
+
+
+.plus, .minus, .food_number{
+    display: inline-block;
+}
+
+.food_number{
+    margin: 0 5px;
+}
+
+.shop_list-link{
+    display: block;
+    color: black;
+}

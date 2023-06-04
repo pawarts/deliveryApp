@@ -1,0 +1,73 @@
+
+.food_wrapper{
+    padding: 50px 0;
+}
+
+.food_list-items{
+    display: inline-grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 63px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.food_list-img{
+    width: 270px;
+    height: 180px;
+    border-radius: 20px;
+}
+
+.food_list-text{
+    display: inline-block;
+    font-size: 25px;
+}
+
+.food_list-review_wrapper{
+    display: inline-flex;
+    color: #6A6A6A;
+    font-size: 17px;
+}
+
+.food_list-item{
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.food_list-review_text{
+    display: block;
+    margin-right: 24px;
+}
+
+.add_cart_button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    border: none;
+    background: #ffa32f;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.add_cart_image{
+    margin-left: 5px;
+}
+
+.input_text{
+    display: inline-block;
+    border: none;
+}
+
+.cart_list-wrapper{
+    display: flex;
+}
+
+.button_wrapper{
+    display: flex;
+    align-items: center;
+}
+
+.cart_number{
+    margin: 0 24px;
+}
