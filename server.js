@@ -4,13 +4,28 @@ const path = require("path");
 const mysql = require('mysql2');
 
 // create the connection to database
-const connection = mysql.createConnection({
-    host: 'baeke9kzc4pm7pbd3bgq-mysql.services.clever-cloud.com',
-    port: '3306',
-    user: 'usx7qczxnuuenatc',
-    database: 'baeke9kzc4pm7pbd3bgq',
-    password: 'vQsk4oalZ6l4MTppXAZP'
-});
+
+function connectToDatabase() {
+    const connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'your_user',
+        password: 'your_password',
+        database: 'your_database'
+    });
+
+    connection.connect((err) => {
+        if (err) {
+            console.error('Помилка підключення до бази даних:', err.message);
+        } else {
+            console.log('Підключення до бази даних встановлено.');
+        }
+    });
+
+
+    return connection
+}
+
+let connection = connectToDatabase();
 
 connection.connect((err) => {
     err ? console.log(err) : console.log('I\'m connected to DB')
@@ -21,7 +36,7 @@ connection.connect((err) => {
 const app = express();
 
 //Listened port
-const PORT = 8700
+const PORT = 8700;
 
 //Function create path
 const createPath = (page) => path.resolve(__dirname, 'ejs-modules', `${page}.ejs`)
@@ -57,7 +72,7 @@ app.post('/reg', (req, res) => {
     if(password[0] != password[1] && login != '' && password != '' && email != ''){
         res.redirect('/reg')
     } else {
-        let insert = `INSERT INTO ${`delivery_app.user`} (${`id`}, ${`login`}, ${`password`}, ${`email`}, ${`status`}) VALUES (NULL, '${login}', '${password[0]}', '${email}', '${status}')`
+        let insert = `INSERT INTO ${`baeke9kzc4pm7pbd3bgq.user`} (${`id`}, ${`login`}, ${`password`}, ${`email`}, ${`status`}) VALUES (NULL, '${login}', '${password[0]}', '${email}', '${status}')`
 
         connection.query(insert, (error) => {
             if(!error){
@@ -81,7 +96,7 @@ app.post('/log',(req, res) => {
 
     const {name, password} = req.body
 
-    let query = `SELECT  ${`login`}, ${`password`}, ${`email`}, ${`id`}, ${`status`}  FROM ${`delivery_app.user`} WHERE login =  ? AND password = ?`
+    let query = `SELECT  ${`login`}, ${`password`}, ${`email`}, ${`id`}, ${`status`}  FROM ${`baeke9kzc4pm7pbd3bgq.user`} WHERE login =  ? AND password = ?`
     connection.query(query, [name, password], (err, result, field) =>{
         if(Array.isArray(result) && result.length > 0){
             login = name;
@@ -317,4 +332,12 @@ app.get('/delete_food/:id/:number', (req,res) => {
         }
     })
 })
+
+
+if (connection.state === 'disconnected') {
+    console.log('Підключення до бази даних закрите. Повторне підключення...');
+    connection = connectToDatabase();
+}
+
+connection.end()
 /*orm sequelize*/
