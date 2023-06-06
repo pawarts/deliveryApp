@@ -4,28 +4,13 @@ const path = require("path");
 const mysql = require('mysql2');
 
 // create the connection to database
-
-function connectToDatabase() {
-    const connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'your_user',
-        password: 'your_password',
-        database: 'your_database'
-    });
-
-    connection.connect((err) => {
-        if (err) {
-            console.error('Помилка підключення до бази даних:', err.message);
-        } else {
-            console.log('Підключення до бази даних встановлено.');
-        }
-    });
-
-
-    return connection
-}
-
-let connection = connectToDatabase();
+const connection = mysql.createConnection({
+    host: 'baeke9kzc4pm7pbd3bgq-mysql.services.clever-cloud.com',
+    user: 'usx7qczxnuuenatc',
+    database: 'baeke9kzc4pm7pbd3bgq',
+    password: 'vQsk4oalZ6l4MTppXAZP',
+    port: 3306
+});
 
 connection.connect((err) => {
     err ? console.log(err) : console.log('I\'m connected to DB')
@@ -200,9 +185,6 @@ app.get('/:store', (req, res) => {
 
 })
 
-app.post('/deliver', (req, res) => {
-})
-
 
 app.get('/cart/food', (req, res) => {
     console.log(login + ' ' + email)
@@ -224,6 +206,7 @@ app.get('/cart/food', (req, res) => {
         res.render(createPath('cart'), {location, results, login, email, sum})
     })
 })
+
 
 app.post('/cart', async (req, res) => {
     let body = req.body;
@@ -290,6 +273,22 @@ app.post('/deliver_form', async(req, res) => {
     res.redirect(req.headers.referer)
 })
 
+app.post('/deliver_order', (req, res) => {
+    let body = req.body;
+
+    let id = body.orderID;
+
+    const deleteQuery = `DELETE FROM orders WHERE id = '${id}'`;
+
+    connection.query(deleteQuery, (err, res) => {
+        if(err){
+            console.log(err.message);
+        }
+    })
+})
+
+
+
 app.get('/add_food/:id/:number', (req,res) => {
     let id = req.params.id;
     let number = req.params.number;
@@ -332,12 +331,4 @@ app.get('/delete_food/:id/:number', (req,res) => {
         }
     })
 })
-
-
-if (connection.state === 'disconnected') {
-    console.log('Підключення до бази даних закрите. Повторне підключення...');
-    connection = connectToDatabase();
-}
-
-connection.end()
 /*orm sequelize*/
