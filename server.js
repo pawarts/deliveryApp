@@ -21,7 +21,7 @@ connection.connect((err) => {
 const app = express();
 
 //Listened port
-const PORT = process.env.POST
+const PORT = 8700
 
 //Function create path
 const createPath = (page) => path.resolve(__dirname, 'ejs-modules', `${page}.ejs`)
